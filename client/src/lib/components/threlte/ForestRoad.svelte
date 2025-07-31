@@ -4,12 +4,12 @@
 	
 	// Configuration
 	const ROAD_LENGTH = 16; // Length of each road segment at scale 4
-	const NUM_SEGMENTS = 5; // Number of road segments to maintain
+	const NUM_SEGMENTS = 7; // Number of road segments to maintain (increased from 5 to 7)
 	const MOVE_SPEED = 1; // Units per second
 	
-	// Track positions of road segments
+	// Track positions of road segments - now includes 2 pieces behind camera
 	let roadPositions = $state(
-		Array.from({ length: NUM_SEGMENTS }, (_, i) => i * ROAD_LENGTH)
+		Array.from({ length: NUM_SEGMENTS }, (_, i) => (i - 2) * ROAD_LENGTH)
 	);
 	
 	// Animation loop

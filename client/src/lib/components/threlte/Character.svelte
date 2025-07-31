@@ -5,7 +5,7 @@
 	// Load GLTF model with animations
 	let { gltf, actions } = useGltfAnimations();
 	
-	// Initialize and play walk animation
+	// Initialize and play walk animation, and enable shadows on all meshes
 	$effect(() => {
 		if (!$actions) return;
 		
@@ -18,6 +18,19 @@
 			// Set to loop
 			walkAction.loop = true;
 		}
+	});
+	
+	// Enable shadows on all meshes when the model is loaded
+	$effect(() => {
+		if (!$gltf) return;
+		
+		// Traverse the entire scene and enable shadows on all meshes
+		$gltf.scene.traverse((child) => {
+			if (child.isMesh) {
+				child.castShadow = true;
+				child.receiveShadow = true;
+			}
+		});
 	});
 </script>
 

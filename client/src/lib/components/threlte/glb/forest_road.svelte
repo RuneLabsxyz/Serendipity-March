@@ -35,10 +35,14 @@ Title: Hiden Road Diorama
         <T.Mesh
           geometry={gltf.nodes.Trees_Nature_0.geometry}
           material={gltf.materials.Nature}
+          castShadow
+          receiveShadow
         />
         <T.Mesh
           geometry={gltf.nodes.Trees_Nature_0_1.geometry}
           material={gltf.materials.Nature}
+          castShadow
+          receiveShadow
         />
       </T.Group>
       <T.Mesh
@@ -46,12 +50,14 @@ Title: Hiden Road Diorama
         material={gltf.materials.Road}
         rotation={[-Math.PI / 2, 0, 0]}
         scale={100}
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Ground_Ground_0.geometry}
         material={gltf.materials.Ground}
         rotation={[-Math.PI / 2, 0, 0]}
         scale={200}
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.BgCutOut_BackGround_0.geometry}
@@ -65,6 +71,8 @@ Title: Hiden Road Diorama
         position={[-90.96, -0.13, 3.63]}
         rotation={[-Math.PI, -1.49, -Math.PI / 2]}
         scale={42.47}
+        castShadow
+        receiveShadow
       />
       <T.Mesh
         geometry={gltf.nodes.Grass_Nature_0.geometry}
@@ -72,6 +80,8 @@ Title: Hiden Road Diorama
         position={[130.87, 13.48, 172.89]}
         rotation={[-0.08, 1.24, 0.21]}
         scale={51.17}
+        castShadow
+        receiveShadow
       />
     </T.Group>
   {:catch err}

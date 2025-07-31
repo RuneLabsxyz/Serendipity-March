@@ -31,4 +31,4 @@ export const cameraConfigs: Record<CameraMode, CameraConfig> = {
 	}
 };
 
-export const cameraMode = writable<CameraMode>('classic');
+export const cameraMode = writable<CameraMode>('login');

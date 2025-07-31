@@ -8,51 +8,61 @@
 	function setCameraMode(mode: CameraMode) {
 		$cameraMode = mode;
 	}
+	
+	function handleLogin() {
+		$cameraMode = 'classic';
+	}
+	
+	// Derive if we're in login mode
+	const isLoginMode = $derived($cameraMode === 'login');
 </script>
 
 <div class="ui-overlay">
-	<div class="top-bar">
-		<div class="stats">
-			<div class="stat-item">
-				<span class="label">Score:</span>
-				<span class="value">{score}</span>
-			</div>
-			<div class="stat-item">
-				<span class="label">Health:</span>
-				<span class="value">{health}%</span>
-			</div>
-		</div>
-		
-		<div class="camera-controls">
-			<button 
-				class="camera-btn" 
-				class:active={$cameraMode === 'login'}
-				on:click={() => setCameraMode('login')}
-			>
-				Login
-			</button>
-			<button 
-				class="camera-btn" 
-				class:active={$cameraMode === 'classic'}
-				on:click={() => setCameraMode('classic')}
-			>
-				Classic
-			</button>
-			<button 
-				class="camera-btn" 
-				class:active={$cameraMode === 'edit'}
-				on:click={() => setCameraMode('edit')}
-			>
-				Edit
+	{#if isLoginMode}
+		<!-- Login screen - just the login button -->
+		<div class="login-container">
+			<button class="login-btn" on:click={handleLogin}>
+				Start Game
 			</button>
 		</div>
-	</div>
+	{:else}
+		<!-- Game UI - visible only after login -->
+		<div class="top-bar">
+			<div class="stats">
+				<div class="stat-item">
+					<span class="label">Score:</span>
+					<span class="value">{score}</span>
+				</div>
+				<div class="stat-item">
+					<span class="label">Health:</span>
+					<span class="value">{health}%</span>
+				</div>
+			</div>
+			
+			<div class="camera-controls">
+				<button 
+					class="camera-btn" 
+					class:active={$cameraMode === 'classic'}
+					on:click={() => setCameraMode('classic')}
+				>
+					Classic
+				</button>
+				<button 
+					class="camera-btn" 
+					class:active={$cameraMode === 'edit'}
+					on:click={() => setCameraMode('edit')}
+				>
+					Edit
+				</button>
+			</div>
+		</div>
 
-	<div class="bottom-controls">
-		<button on:click={() => score += 10}>Add Score</button>
-		<button on:click={() => health = Math.max(0, health - 10)}>Take Damage</button>
-		<button on:click={() => health = 100}>Heal</button>
-	</div>
+		<div class="bottom-controls">
+			<button on:click={() => score += 10}>Add Score</button>
+			<button on:click={() => health = Math.max(0, health - 10)}>Take Damage</button>
+			<button on:click={() => health = 100}>Heal</button>
+		</div>
+	{/if}
 </div>
 
 <style>
@@ -159,5 +169,40 @@
 
 	button:active {
 		transform: translateY(0);
+	}
+	
+	.login-container {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		pointer-events: auto;
+	}
+	
+	.login-btn {
+		padding: 20px 60px;
+		background: rgba(0, 0, 0, 0.9);
+		color: white;
+		border: 3px solid #4ecdc4;
+		border-radius: 10px;
+		cursor: pointer;
+		font-size: 24px;
+		font-weight: bold;
+		transition: all 0.3s ease;
+		font-family: monospace;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+	}
+	
+	.login-btn:hover {
+		background: #4ecdc4;
+		color: black;
+		transform: scale(1.05);
+		box-shadow: 0 0 40px rgba(78, 205, 196, 0.6);
+	}
+	
+	.login-btn:active {
+		transform: scale(0.98);
 	}
 </style>

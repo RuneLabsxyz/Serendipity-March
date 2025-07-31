@@ -18,16 +18,16 @@ export const cameraConfigs: Record<CameraMode, CameraConfig> = {
 	
 	// Edit view - top-down for army overview
 	edit: {
-		position: [0, 100, 0],
+		position: [0, 10, 0],
 		rotation: [Math.PI / 2, Math.PI, 0], // Looking straight down
 		fov: 50
 	},
 	
 	// Login view - cinematic side angle
 	login: {
-		position: [10, 3, -2], // Side position, slightly forward
-		rotation: [0, Math.PI * 0.85, 0], // Looking back at an angle
-		fov: 65
+		position: [1, 0.5, 0],
+		rotation: [-1, Math.PI / 4, 1], // Looking back at an angle
+		fov: 100
 	}
 };
 

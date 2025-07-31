@@ -25,7 +25,7 @@ export const cameraConfigs: Record<CameraMode, CameraConfig> = {
 	
 	// Login view - cinematic side angle
 	login: {
-		position: [1, 0.5, 0],
+		position: [0.6, 0.6, 0.6],
 		rotation: [-1, Math.PI / 4, 1], // Looking back at an angle
 		fov: 100
 	}

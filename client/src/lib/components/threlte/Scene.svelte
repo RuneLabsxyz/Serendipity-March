@@ -2,6 +2,7 @@
 	import { Canvas, T } from '@threlte/core';
 	import ForestRoad from './ForestRoad.svelte';
 	import Camera from './Camera.svelte';
+	import Character from './Character.svelte';
 </script>
 
 <div class="scene-container">
@@ -12,6 +13,7 @@
 		<T.AmbientLight intensity={0.2} />
 
 		<ForestRoad />
+		<Character />
 	</Canvas>
 </div>
 

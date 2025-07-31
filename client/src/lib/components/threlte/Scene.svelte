@@ -1,17 +1,12 @@
 <script lang="ts">
 	import { Canvas, T } from '@threlte/core';
 	import ForestRoad from './ForestRoad.svelte';
+	import Camera from './Camera.svelte';
 </script>
 
 <div class="scene-container">
 	<Canvas>		
-		<!-- Fixed camera position like in a car, looking forward down the road -->
-		<T.PerspectiveCamera 
-			makeDefault 
-			position={[0, 2, -5]} 
-			rotation={[0.2, Math.PI, 0]}
-			fov={60}
-		/>
+		<Camera />
 
 		<T.DirectionalLight intensity={0.8} position={[5, 10, 5]} />
 		<T.AmbientLight intensity={0.2} />

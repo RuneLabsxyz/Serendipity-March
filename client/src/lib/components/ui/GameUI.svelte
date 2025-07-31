@@ -1,6 +1,13 @@
 <script lang="ts">
+	import { cameraMode } from '$lib/stores/camera';
+	import type { CameraMode } from '$lib/stores/camera';
+	
 	let score = 0;
 	let health = 100;
+	
+	function setCameraMode(mode: CameraMode) {
+		$cameraMode = mode;
+	}
 </script>
 
 <div class="ui-overlay">
@@ -14,6 +21,30 @@
 				<span class="label">Health:</span>
 				<span class="value">{health}%</span>
 			</div>
+		</div>
+		
+		<div class="camera-controls">
+			<button 
+				class="camera-btn" 
+				class:active={$cameraMode === 'login'}
+				on:click={() => setCameraMode('login')}
+			>
+				Login
+			</button>
+			<button 
+				class="camera-btn" 
+				class:active={$cameraMode === 'classic'}
+				on:click={() => setCameraMode('classic')}
+			>
+				Classic
+			</button>
+			<button 
+				class="camera-btn" 
+				class:active={$cameraMode === 'edit'}
+				on:click={() => setCameraMode('edit')}
+			>
+				Edit
+			</button>
 		</div>
 	</div>
 
@@ -43,6 +74,9 @@
 		padding: 20px;
 		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent);
 		pointer-events: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
 	}
 
 	.stats {
@@ -51,6 +85,35 @@
 		color: white;
 		font-family: monospace;
 		font-size: 18px;
+	}
+	
+	.camera-controls {
+		display: flex;
+		gap: 5px;
+	}
+	
+	.camera-btn {
+		padding: 8px 16px;
+		background: rgba(0, 0, 0, 0.6);
+		color: white;
+		border: 1px solid rgba(78, 205, 196, 0.3);
+		border-radius: 3px;
+		cursor: pointer;
+		font-size: 14px;
+		transition: all 0.2s ease;
+		font-family: monospace;
+	}
+	
+	.camera-btn:hover {
+		background: rgba(78, 205, 196, 0.2);
+		border-color: #4ecdc4;
+	}
+	
+	.camera-btn.active {
+		background: #4ecdc4;
+		color: black;
+		border-color: #4ecdc4;
+		font-weight: bold;
 	}
 
 	.stat-item {

@@ -1,14 +1,17 @@
 <script lang="ts">
 	import { Canvas, T } from '@threlte/core';
-	import { OrbitControls } from '@threlte/extras';
 	import ForestRoad from './ForestRoad.svelte';
 </script>
 
 <div class="scene-container">
 	<Canvas>		
-		<T.PerspectiveCamera makeDefault position={[10, 10, 10]} fov={60}>
-			<OrbitControls enableDamping />
-		</T.PerspectiveCamera>
+		<!-- Fixed camera position like in a car, looking forward down the road -->
+		<T.PerspectiveCamera 
+			makeDefault 
+			position={[0, 2, -5]} 
+			rotation={[0.2, Math.PI, 0]}
+			fov={60}
+		/>
 
 		<T.DirectionalLight intensity={0.8} position={[5, 10, 5]} />
 		<T.AmbientLight intensity={0.2} />

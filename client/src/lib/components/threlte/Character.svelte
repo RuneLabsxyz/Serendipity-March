@@ -1,45 +1,55 @@
 <script lang="ts">
-	import { GLTF, useGltfAnimations } from '@threlte/extras';
 	import { T } from '@threlte/core';
+	import Walking from './glb/walking.svelte';
+	import { LoopRepeat } from 'three';
 	
-	// Load GLTF model with animations
-	let { gltf, actions } = useGltfAnimations();
+	let walkingInstance: any;
 	
-	// Initialize and play walk animation, and enable shadows on all meshes
+	// Play animations when the Walking component is ready
 	$effect(() => {
-		if (!$actions) return;
+		if (!walkingInstance) return;
 		
-		// Get the walk action
-		const walkAction = $actions['walk'];
-		if (walkAction) {
-			// Enable and play the walk animation
-			walkAction.enabled = true;
-			walkAction.play();
-			// Set to loop
-			walkAction.loop = true;
-		}
-	});
-	
-	// Enable shadows on all meshes when the model is loaded
-	$effect(() => {
-		if (!$gltf) return;
-		
-		// Traverse the entire scene and enable shadows on all meshes
-		$gltf.scene.traverse((child) => {
-			if (child.isMesh) {
-				child.castShadow = true;
-				child.receiveShadow = true;
-			}
+		// Subscribe to the actions store
+		const unsubscribe = walkingInstance.actions.subscribe((actions: any) => {
+			if (!actions) return;
+			
+			// Play all available animations
+			Object.values(actions).forEach((action: any) => {
+				if (action && !action.isRunning()) {
+					action.setLoop(LoopRepeat, Infinity);
+					action.play();
+				}
+			});
 		});
+		
+		return unsubscribe;
 	});
 </script>
 
 <!-- Character model positioned at origin -->
 <T.Group position={[0, 0.1, 0]} scale={0.7}>
-	<GLTF
-		bind:gltf={$gltf}
-		url="https://threejs.org/examples/models/gltf/Xbot.glb"
-		castShadow
-		receiveShadow
-	/>
+	<Walking bind:this={walkingInstance}>
+		{#snippet fallback()}
+			<!-- Loading... -->
+		{/snippet}
+		{#snippet error({ error })}
+			<T.Mesh>
+				<T.BoxGeometry />
+				<T.MeshBasicMaterial color="red" />
+			</T.Mesh>
+		{/snippet}
+		{#snippet children({ ref })}
+			{#if ref}
+				{@const _ = (() => {
+					// Enable shadows on all meshes
+					ref.traverse((child: any) => {
+						if (child.isMesh) {
+							child.castShadow = true;
+							child.receiveShadow = true;
+						}
+					});
+				})()}
+			{/if}
+		{/snippet}
+	</Walking>
 </T.Group>
